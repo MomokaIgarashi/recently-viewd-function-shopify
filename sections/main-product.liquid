@@ -567,19 +567,6 @@
       ]
     }
   </script>
-
-  {%- comment -%} Load recently viewed products {%- endcomment -%}
-  <script type="text/javascript">
-    Shopify.Products.recordRecentlyViewed();
-  </script>
-
-  {% if template contains 'product' %}
-
-    <script>
-      Shopify.Products.recordRecentlyViewed();
-    </script>
-    
-  {% endif %}
 </section>
 
 {% schema %}

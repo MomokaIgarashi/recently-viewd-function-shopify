@@ -294,9 +294,15 @@
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-      {%- comment -%} Load recently viewed products {%- endcomment -%}
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-      {{ '//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js' | script_tag }}
-      {{ "jquery.products.js" | asset_url | script_tag }}
+    {% if template contains 'product' %}
+
+      {{ '//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js' | script_tag }}
+      {{ 'jquery.products.min.js' | asset_url | script_tag }}
+      
+      <script>
+      Shopify.Products.recordRecentlyViewed();
+      </script>
+      
+    {% endif %}
   </body>
 </html>
