@@ -1,0 +1,113 @@
+{% comment -%}
+------------------------------------
+Recently Viewd Products Section
+------------------------------------
+{%- endcomment -%}
+
+<!-- product-recently-viewed -->
+<div class="product-recently-viewed collection-slider">
+    <div class="container">
+      <h2 class="product-recently-viewed__title section__title">Products that you've recently viewd</h2>
+  
+      <ul id="js-recentlySliderBody" class="js-recentlySlider collection-slider__list product-recently-viewed__list">
+  
+        {% unless customer %}
+          {%- comment -%} When not logged in  {%- endcomment -%}
+          <p id="wishlist-empty-text"
+            style="padding: 60px 0; text-align: center;min-height: 320px; display: flex; align-items: center;">
+            There is no products that you recently checked
+          </p>
+        {% endunless %}
+  
+      </ul>
+    </div>
+  </div>
+  
+  {%- comment -%} When logged in {%- endcomment -%}
+  {% if customer %}
+    {%- comment -%} Products Cart {%- endcomment -%}
+    {% raw %}
+      <script id="recently-viewed-product-template"  type="text/x-jquery-tmpl">
+        <li class="featured-collection-slider__item collection-slider__item">
+          <div class="product-card">
+            <a href="${url}" class="product-card__link">
+              <div class="product-card__head">
+                <img src="${Shopify.Products.resizeImage(featured_image, "master")}" alt="${title}">
+              </div>
+              <div class="product-card__body">
+                <h3 class="product-card__title">${title}</h3>
+                <p class="product-card__price">
+                  ${(price / 100).toLocaleString()}
+                  <span class="tax">（税込）</span>
+                </p>
+              </div>
+            </a>
+          </div>
+        </li>
+      </script>
+    {% endraw %}
+  
+  
+    {%- comment -%} Control js {%- endcomment -%}
+    <script>
+      window.addEventListener( 'load', function(){
+        const recentlyViewController = (function(){
+  
+          // Get the data from Cookie
+          let recentlyItems = jQuery.cookie('shopify_recently_viewed');
+  
+          // When there is data in cookie, when there is recently viewd data
+          if(recentlyItems != null ) {
+            Shopify.Products.showRecentlyViewed({
+              howManyToShow: 8,// Change how many products to show
+              wrapperId: 'js-recentlySliderBody',
+              onComplete: function() {
+                // To start after the data is loaded
+                $('#js-recentlySliderBody').slick({
+                  autoplay: false,
+                  dots: false,
+                  arrows: true,
+                  slidesToShow: 4,
+                  slidesToScroll: 1,
+                  infinite: false,
+                  prevArrow: '<button class="slick-prev"><span class="slick-arrow__inner"></span></button>',
+                  nextArrow: '<button class="slick-next"><span class="slick-arrow__inner"></span></button>',
+                  responsive: [
+                    {
+                      breakpoint: 480,
+                      settings: {
+                        slidesToShow: 2,
+                      },
+                    },
+                  ],
+                });
+  
+                // To show the items that are not shown
+                let lists = Array.from(document.querySelectorAll('li.recently-slider__item'));
+                lists.forEach((item) => {
+                  item.style.display = "block";
+                });
+              }
+            });
+          } else {
+            // When there is no coolie data, when there is no recently viewd product
+            document.getElementById('js-recentlySliderBody').insertAdjacentHTML("afterbegin",`<p id="wishlist-empty-text" style="padding: 60px 0; text-align: center;min-height: 320px; display: flex; align-items: center;">まだ最近チェックした商品がありません</p>`);
+          }
+  
+        })();
+      }, false);
+    </script>
+  {% endif %}
+  
+{% schema %}
+{
+    "name": "Product Recently Viewed",
+    "settings": [
+    ],
+    "presets": [
+        {
+        "name": "Product Recently Viewed"
+        }
+    ]
+}
+{% endschema %}
