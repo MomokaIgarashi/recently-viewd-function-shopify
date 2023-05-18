@@ -1,6 +1,12 @@
 {{ '//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js' | script_tag }}
 {{ 'jquery.products.min.js' | asset_url | script_tag }}
 
+<style>
+  .product--slide{
+    display:flex;
+  }
+</style>
+
 <section>
   <div class="clearfix"></div>
 
@@ -16,7 +22,7 @@
           </aside>  
     </div>
   {% assign grid_item_width = 'small--one-half medium-up--one-quarter' %}
-    <div class="grid grid--uniform grid--view-items leg-room">
+    <div class="product--slide grid grid--uniform grid--view-items leg-room">
         {% raw %}
         
         <script id="recently-viewed-product-template"  type="text/x-jquery-tmpl">
@@ -42,7 +48,7 @@
         {% endraw %}
 
         <script>
-        Shopify.Products.showRecentlyViewed( { howManyToShow:8 } );
+          Shopify.Products.showRecentlyViewed( { howManyToShow:8 } );
         </script>
     </div>
 </section>

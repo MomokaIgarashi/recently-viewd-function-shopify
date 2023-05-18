@@ -1,82 +1,121 @@
-<section>
-      <style>
-        body {
-          position: relative;
-          height: 100%;
-        }
-    
-        body {
-          background: #eee;
-          font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-          font-size: 14px;
-          color: #000;
-          margin: 0;
-          padding: 0;
-        }
-    
-        swiper-container {
-          width: 100%;
-          height: 100%;
-        }
-    
-        swiper-slide {
-          text-align: center;
-          font-size: 18px;
-          background: #fff;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-    
-        swiper-slide img {
-          display: block;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      </style>
-    
-    <body>
+<section>    
+    <div class="swiper--wrapper">
       <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="30"
         slides-per-view="3">
-        <swiper-slide>Slide 1</swiper-slide>
-        <swiper-slide>Slide 2</swiper-slide>
-        <swiper-slide>Slide 3</swiper-slide>
-        <swiper-slide>Slide 4</swiper-slide>
-        <swiper-slide>Slide 5</swiper-slide>
-        <swiper-slide>Slide 6</swiper-slide>
-        <swiper-slide>Slide 7</swiper-slide>
-        <swiper-slide>Slide 8</swiper-slide>
-        <swiper-slide>Slide 9</swiper-slide>
+        <swiper-slide>
+            <img class="swiper--image" src="https://cdn.shopify.com/s/files/1/0766/7784/1216/files/SideTableA.jpg?v=1684433479" alt="">
+            <div class="swiper--product">
+                <p>Slide1</p>
+                <p>100EUR</p> 
+            </div>
+        </swiper-slide>
+        <swiper-slide>
+            <img class="swiper--image" src="https://cdn.shopify.com/s/files/1/0766/7784/1216/files/SideTableA.jpg?v=1684433479" alt="">
+            <div class="swiper--product">
+                <p>Slide1</p>
+                <p>100EUR</p> 
+            </div>
+        </swiper-slide>
+        <swiper-slide>
+            <img class="swiper--image" src="https://cdn.shopify.com/s/files/1/0766/7784/1216/files/SideTableA.jpg?v=1684433479" alt="">
+            <div class="swiper--product">
+                <p>Slide1</p>
+                <p>100EUR</p> 
+            </div>
+        </swiper-slide>
+        <swiper-slide>
+            <img class="swiper--image" src="https://cdn.shopify.com/s/files/1/0766/7784/1216/files/SideTableA.jpg?v=1684433479" alt="">
+            <div class="swiper--product">
+                <p>Slide1</p>
+                <p>100EUR</p> 
+            </div>
+        </swiper-slide>
       </swiper-container>
-    
-      <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
-    
-    </body>
+    </div>
 
-<script>
-    const swiper = new Swiper('.swiper', {
-        // Optional parameters
-        direction: 'vertical',
-        loop: true,
-      
-        // If we need pagination
-        pagination: {
-          el: '.swiper-pagination',
-        },
-      
-        // Navigation arrows
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-      
-        // And if we need scrollbar
-        scrollbar: {
-          el: '.swiper-scrollbar',
-        },
-      });
-</script>
+    <style>
+        .swiper--wrapper {
+            position: relative;
+            height: 100%;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            {% comment %} margin: 0; {% endcomment %}
+            {% comment %} padding: 0; {% endcomment %}
+            padding-bottom:10rem!important;
+        }
+
+        swiper-container {
+            width: 90vw;
+            height: 100%;
+            display:flex;
+            margin-left:auto;
+            margin-right:auto;
+        }
+
+        swiper-slide {
+            {% comment %} width:30rem;
+            height:30rem; {% endcomment %}
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        swiper-slide img {
+            display: block;
+            width: 30rem;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .swiper--image{
+            width:30rem;
+            height:30rem;
+        }
+
+        .swiper-slide, swiper-slide{
+            padding-bottom:4rem;
+        }
+
+        .swiper--product{
+            display:flex;
+            justify-content: center;
+        }
+
+        .swiper--product p{
+            margin:0 1rem;
+        }
+    </style>
+
+    <script>
+        const swiper = new Swiper('.swiper', {
+            // Optional parameters
+            direction: 'vertical',
+            loop: true,
+        
+            // If we need pagination
+            pagination: {
+            el: '.swiper-pagination',
+            },
+        
+            // Navigation arrows
+            navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+            },
+        
+            // And if we need scrollbar
+            scrollbar: {
+            el: '.swiper-scrollbar',
+            },
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
+
 
 </section>
 
