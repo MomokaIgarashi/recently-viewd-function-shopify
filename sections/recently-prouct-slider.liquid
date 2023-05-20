@@ -1,62 +1,184 @@
 {{ '//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js' | script_tag }}
 {{ 'jquery.products.min.js' | asset_url | script_tag }}
-
-<style>
-  .product--slide{
-    display:flex;
-  }
-</style>
+{{ 'custom-components.js' | asset_url | script_tag }}
 
 <section>
-  <div class="clearfix"></div>
+  <div class="recently-view">
+    <div class="clearfix"></div>
 
-    <div class="product-template__container page-width head-room">
-          <aside class="grid">
-            <div class="grid__item">
-              <div id="recently-viewed-products" class="collection clearfix " >
+      <div class="">
+            <div id="recently-viewed-products" class="collection clearfix " >
               <header class="section-header">
-                <h2 class="section-header__title border-bottom">Recently Viewed Products</h2>         
+                <h2 class="section-header__title border-bottom">{{ section.settings.title_text }}</h2>
+                <p>{{ section.settings.description_text }}</p>         
               </header>  
-              </div>
             </div>
-          </aside>  
-    </div>
-  {% assign grid_item_width = 'small--one-half medium-up--one-quarter' %}
-    <div class="product--slide grid grid--uniform grid--view-items leg-room">
-        {% raw %}
-        
-        <script id="recently-viewed-product-template"  type="text/x-jquery-tmpl">
-        <div class="grid__item small--one-half medium-up--one-quarter"  itemscope itemtype="http://schema.org/Product" >
-        <div id="product-${handle}" class="products"}>
-          <div class="image">
-            <a href="${url}">
-              <img src="${Shopify.Products.resizeImage(featured_image, "medium")}" />
-            </a>
-          </div>
-          <div class="details">
-            <a href="${url}">
-              <span class="title">${title}</span>
+      </div>
+      <div class="swiper--wrapper">
+        <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="30"
+          slides-per-view="3">
+          <swiper-slide>
+            {% raw %}
+              <script id="recently-viewed-product-template"  type="text/x-jquery-tmpl">
+                  <div id="product-${handle}"}>
+                    <a href="${url}">
+                      <img src="${Shopify.Products.resizeImage(featured_image, "medium")}" />
+                      <span class="title">${title}</span>
+                      <span>€ ${price /100}</span>
+                    </a>
+                  </div>
+              </script>
+            {% endraw %}
+          </swiper-slide>
+        </swiper-container>
+      </div>
+  </div>
 
-              <!--Add Price Code-->
+  <script>
+    Shopify.Products.showRecentlyViewed( { howManyToShow:{{ section.settings.howmany_show }} } );
+  </script>
+
+  <div class="swiper--wrapper">
+    <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="30"
+      slides-per-view="3">
+      <swiper-slide>
+          <img class="swiper--image" src="https://cdn.shopify.com/s/files/1/0766/7784/1216/files/SideTableA.jpg?v=1684433479" alt="">
+          <div class="swiper--product">
+              <p>Slide1</p>
+              <p>100EUR</p> 
+          </div>
+      </swiper-slide>
+      <swiper-slide>
+          <img class="swiper--image" src="https://cdn.shopify.com/s/files/1/0766/7784/1216/files/SideTableA.jpg?v=1684433479" alt="">
+          <div class="swiper--product">
+              <p>Slide1</p>
+              <p>100EUR</p> 
+          </div>
+      </swiper-slide>
+      <swiper-slide>
+          <img class="swiper--image" src="https://cdn.shopify.com/s/files/1/0766/7784/1216/files/SideTableA.jpg?v=1684433479" alt="">
+          <div class="swiper--product">
+              <p>Slide1</p>
+              <p>100EUR</p> 
+          </div>
+      </swiper-slide>
+      <swiper-slide>
+          <img class="swiper--image" src="https://cdn.shopify.com/s/files/1/0766/7784/1216/files/SideTableA.jpg?v=1684433479" alt="">
+          <div class="swiper--product">
+              <p>Slide1</p>
+              <p>100EUR</p> 
+          </div>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+
+  <style>
+      .swiper--wrapper {
+          position: relative;
+          height: 100%;
+          font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+          font-size: 14px;
+          color: #000;
+          {% comment %} margin: 0; {% endcomment %}
+          {% comment %} padding: 0; {% endcomment %}
+          padding-bottom:10rem!important;
+      }
+
+      swiper-container {
+          width: 90vw;
+          height: 100%;
+          display:flex;
+          margin-left:auto;
+          margin-right:auto;
+      }
+
+      swiper-slide {
+          {% comment %} width:30rem;
+          height:30rem; {% endcomment %}
+          text-align: center;
+          font-size: 18px;
+          background: #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      swiper-slide img {
+          display: block;
+          width: 30rem;
+          height: 100%;
+          object-fit: cover;
+      }
+
+      .swiper--image{
+          width:30rem;
+          height:30rem;
+      }
+
+      .swiper-slide, swiper-slide{
+          padding-bottom:4rem;
+      }
+
+      .swiper--product{
+          display:flex;
+          justify-content: center;
+      }
+
+      .swiper--product p{
+          margin:0 1rem;
+      }
+  </style>
+
+  <script>
+      const swiper = new Swiper('.swiper', {
+          // Optional parameters
+          direction: 'vertical',
+          loop: true,
       
+          // If we need pagination
+          pagination: {
+          el: '.swiper-pagination',
+          },
+      
+          // Navigation arrows
+          navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+          },
+      
+          // And if we need scrollbar
+          scrollbar: {
+          el: '.swiper-scrollbar',
+          },
+      });
+  </script>
 
-            </a>
-          </div>
-        </div>
-        </div>
-        </script>
-        {% endraw %}
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
 
-        <script>
-          Shopify.Products.showRecentlyViewed( { howManyToShow:8 } );
-        </script>
-    </div>
 </section>
+
+{{ 'recently-product-slider.css' | asset_url | stylesheet_tag }}
+
 
 {% schema %}
 {
   "name": "Product Recently Viewed",
   "settings": [
+    {
+      "type": "text",
+      "id": "title_text",
+      "label": "Title Text"
+    },
+    {
+      "type": "text",
+      "id": "description_text",
+      "label": "Description Text"
+    },
+    {
+      "type": "text",
+      "id": "howmany_show",
+      "label": "How many to show"
+    }
   ],
   "presets": [
     {
