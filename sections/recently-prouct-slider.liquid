@@ -1,14 +1,12 @@
 {{ '//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js' | script_tag }}
 {{ 'jquery.products.min.js' | asset_url | script_tag }}
 {{ 'recently-product-slider.css' | asset_url | stylesheet_tag }}
-<script defer src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
 
 <script src="{{ 'custom-components.js' | asset_url }}" type="module"></script>
 
 <section>
   <div class="recently-view">
     <div class="clearfix"></div>
-
       <div class="">
             <div id="recently-viewed-products" class="collection clearfix " >
               <header class="section-header">
@@ -17,34 +15,32 @@
               </header>  
             </div>
       </div>
-        
-            {% raw %}
-              <script id="recently-viewed-product-template"  type="text/x-jquery-tmpl">
-                <div class="swiper--wrapper">
-                  <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="30"
-                    slides-per-view="3">
-                  <swiper-slide>
-                    <div id="product-${handle}">
-                      <a href="${url}">
-                        <img src="${Shopify.Products.resizeImage(featured_image, "medium")}" />
-                        <span class="title">${title}</span>
-                        <span>€ ${price /100}</span>
-                      </a>
-                    </div>
-                  </swiper-slide>
-                </swiper-container>
-              </div>
-
-              </script>
-            {% endraw %}
+      {% raw %}
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <script id="recently-viewed-product-template"  type="text/x-jquery-tmpl">
+            <div class="swiper-slide">
+                <div id="product-${handle}">
+                  <a href="${url}">
+                    <img src="${Shopify.Products.resizeImage(featured_image, "medium")}" />
+                    <span class="title">${title}</span>
+                    <span>€ ${price /100}</span>
+                  </a>
+                </div>
+            </div>
+          </script>
+        </div>
+      </div>
+      {% endraw %}
   </div>
+  <swiper-code howmany="{{ section.settings.howmany_show }}"></swiper-code>
 
-<momoka-code></momoka-code>
 
   <script>
     Shopify.Products.showRecentlyViewed( { howManyToShow:{{ section.settings.howmany_show }} } );
   </script>
 
+{% comment %} 
   <div class="swiper--wrapper">
     <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="30"
       slides-per-view="3">
@@ -158,7 +154,7 @@
           el: '.swiper-scrollbar',
           },
       });
-  </script>
+  </script> {% endcomment %}
 
   {% comment %} Swiper v2 {% endcomment %}
   <style>
@@ -193,16 +189,15 @@
 
     .swiper-slide img {
       display: block;
-      width: 100%;
+      width: 20vw;
       height: 100%;
       object-fit: cover;
     }
   </style>
-</head>
 
 <body>
   <!-- Swiper -->
-  <div class="swiper mySwiper">
+  {% comment %} <div class="swiper mySwiper">
     <div class="swiper-wrapper">
       <div class="swiper-slide">Slide 1</div>
       <div class="swiper-slide">Slide 2</div>
@@ -215,10 +210,13 @@
       <div class="swiper-slide">Slide 9</div>
     </div>
     <div class="swiper-pagination"></div>
-  </div>
+  </div> {% endcomment %}
 
   <!-- Swiper JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
+
 
   <!-- Initialize Swiper -->
   <script>
